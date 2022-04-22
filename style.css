@@ -1,0 +1,28 @@
+#start-btn
+{
+    width: 40%;
+} 
+#camera
+{
+    width:360px;
+    height: 250px;
+    border:1px solid grey;
+}
+#logo_img
+{
+    width: 150px;
+    border-radius: 100px;
+}
+body{
+    background-color: aqua;
+    text-align: center;
+}
+div{
+    margin: 20px;
+}
+label{
+    margin-right: 50px;
+}
+*{
+    margin: 30px;
+}
