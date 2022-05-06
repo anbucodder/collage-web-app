@@ -3,31 +3,31 @@ var SpeechRecognition = window.webkitSpeechRecognition;
 var recognition = new SpeechRecognition();
 
 function start(){
-    document.getElementById("textbox").innerHTML="";
     recognition.start();
 }
 recognition.onresult = function(event){
     console.log(event);
     var content=event.results[0][0].transcript;
-
-    document.getElementById("textbox").innerHTML=content;
     console.log(content);
-    if(content="take my selfie"){
-        console.log("taking selfie in 5 seconds")
-        speak();
-    }
+    localStorage.setItem("content",content)
 }
-
 function speak(){
     var synth=window.speechSynthesis;
-    speak_data="taking your selfie in 5 seconds";
+    speak_data="taking three selfies in 2 seconds intraval";
     var utterThis = new SpeechSynthesisUtterance(speak_data);
     synth.speak(utterThis);
     Webcam.attach(camera);
     setTimeout(function() {
         takesnapshot();
         save();
-    }, 5000);
+    }, 2000);    setTimeout(function() {
+        takesnapshot();
+        save();
+    }, 4000);
+    setTimeout(function() {
+        takesnapshot();
+        save();
+    }, 6000);
 }
 
 Webcam.set({
