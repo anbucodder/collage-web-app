@@ -1,5 +1,5 @@
 var SpeechRecognition = window.webkitSpeechRecognition;
-
+var Content;
 var recognition = new SpeechRecognition();
 
 function start(){
@@ -7,27 +7,39 @@ function start(){
 }
 recognition.onresult = function(event){
     console.log(event);
-    var content=event.results[0][0].transcript;
+    var content=event.results[0][0].transcript.toLowerCase();
     console.log(content);
+    if(content=="selfie."){
+        speak();
+    }
     localStorage.setItem("content",content)
 }
 function speak(){
     var synth=window.speechSynthesis;
-    speak_data="taking three selfies in 2 seconds intraval";
+    speak_data="taking your selfie in 5 seconds";
     var utterThis = new SpeechSynthesisUtterance(speak_data);
     synth.speak(utterThis);
     Webcam.attach(camera);
     setTimeout(function() {
-        takesnapshot();
+        img_id="selfie1";
+        speak_data="taking your next selfie in 5 seconds";
+        var utterThis = new SpeechSynthesisUtterance(speak_data);
+        synth.speak(utterThis);
+        takesnapshot1();
         save();
-    }, 2000);    setTimeout(function() {
-        takesnapshot();
+    }, 5000);    setTimeout(function() {
+        img_id="selfie2";
+        speak_data="taking your next selfie in 5 seconds";
+        var utterThis = new SpeechSynthesisUtterance(speak_data);
+        synth.speak(utterThis);
+        takesnapshot2();
         save();
-    }, 4000);
+    }, 10000);
     setTimeout(function() {
-        takesnapshot();
+        img_id="selfie3";
+        takesnapshot3();
         save();
-    }, 6000);
+    }, 15000);
 }
 
 Webcam.set({
@@ -38,12 +50,21 @@ Webcam.set({
 });
 camera = document.getElementById("camera");
 
-function takesnapshot(){
+function takesnapshot1(){
     Webcam.snap(function (data_uri){
-        document.getElementById("result").innerHTML = '<img id="selfie_image" src="'+data_uri+'"/>';
+        document.getElementById("column1").innerHTML = '<img id="selfie_image" src="'+data_uri+'" style="width:360px;  height:650;"/>';
     });
 }
-
+function takesnapshot2(){
+    Webcam.snap(function (data_uri){
+        document.getElementById("column2").innerHTML = '<img id="selfie_image" src="'+data_uri+' "style="width:360px;  height:650;"/>';
+    });
+}
+function takesnapshot3(){
+    Webcam.snap(function (data_uri){
+        document.getElementById("column3").innerHTML = '<img id="selfie_image" src="'+data_uri+'"style="width:360px;  height:650;"/>';
+    });
+}
 function save(){
     link=document.getElementById("link");
     image=document.getElementById("selfie_image").src;
